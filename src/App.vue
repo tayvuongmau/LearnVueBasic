@@ -1,9 +1,15 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/abc.png">
-    <h1>Welcome tây vương mẫu</h1>
+    <div  v-show="isShow">
+      <img alt="Vue logo" src="./assets/abc.png">
+      <h1>Welcome tây vương mẫu</h1>
+    </div>
     <hr/>
-
+    <button @click="isShow = !isShow">Show/Hide</button>
+    <hr/>
+    <input type="text" :disabled="inputDisable"/>
+    <button @click="inputDisable = ! inputDisable">Lock/Unlock</button>
+    
     <Test />
   </div>
 </template>
@@ -15,7 +21,14 @@
     name : 'App',
     components : {
       Test
+    },
+    data() {
+      return {
+        isShow : true,
+        inputDisable : true
+      }
     }
+
   }
 </script>
 
