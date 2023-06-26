@@ -36,7 +36,7 @@
     <hr>
     <div>{{ toDay | formatDate }}</div>
     <hr>
-    <User v-for="(user, index) in dataUser" :key="index" :load="user"/>
+    <User :load="dataUser"/>
     <hr>
     <Test />
     <hr>
@@ -50,6 +50,7 @@
   import Props1 from './components/Props1.vue'
   import Props2 from './components/Props2.vue'
   import User from './components/User.vue'
+  import {HTTP} from './common/http-common';
   import axios from 'axios'
   export default {
     name : 'App',
@@ -103,7 +104,12 @@
     },
     //call api
     created(){
-      axios.get(`http://localhost:3000/posts`)
+      // axios.get(`http://localhost:3000/posts`,{
+      //   params: {
+      //     title: 'Java'
+      //   }
+      // })
+      HTTP.get(`posts`)
       .then(response =>{
         this.dataUser = response.data
       })
