@@ -1,14 +1,54 @@
 {
-    "posts": [
-      { "id": 1, "title": "Java", "author": "Anonymous" },
-      { "id": 2, "title": "Javascript", "author": "Anonymous" },
-      { "id": 3, "title": "NodeJs", "author": "Anonymous" },
-      { "id": 4, "title": "VueJs", "author": "Anonymous" },
-      { "id": 5, "title": "PHP", "author": "Anonymous" },
-      { "id": 6, "title": "Python", "author": "Anonymous" },
-      { "id": 7, "title": "Ruby", "author": "Anonymous" },
-      { "id": 8, "title": "C#", "author": "Anonymous" },
-      { "id": 9, "title": "Unity", "author": "Anonymous" },
-      { "id": 10, "title": "ReactJs", "author": "Anonymous" }
-    ] 
+  "posts": [
+    {
+      "id": 1,
+      "title": "Java",
+      "author": "Anonymous"
+    },
+    {
+      "id": 2,
+      "title": "Javascript",
+      "author": "Anonymous"
+    },
+    {
+      "id": 3,
+      "title": "NodeJs",
+      "author": "Anonymous"
+    },
+    {
+      "id": 4,
+      "title": "VueJs",
+      "author": "Anonymous"
+    },
+    {
+      "id": 5,
+      "title": "PHP",
+      "author": "Anonymous"
+    },
+    {
+      "id": 6,
+      "title": "Python",
+      "author": "Anonymous"
+    },
+    {
+      "id": 7,
+      "title": "Ruby",
+      "author": "Anonymous"
+    },
+    {
+      "id": 8,
+      "title": "C#",
+      "author": "Anonymous"
+    },
+    {
+      "id": 9,
+      "title": "Unity",
+      "author": "Anonymous"
+    },
+    {
+      "id": 10,
+      "title": "ReactJs",
+      "author": "Anonymous"
+    }
+  ]
 }

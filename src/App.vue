@@ -10,37 +10,87 @@
       <span v-show="! isShow">Hide</span>
     </button>
     <hr/>
-    <input type="text" :disabled="inputDisable"/>
-    <button @click="inputDisable = ! inputDisable">Lock/Unlock</button>
+    <div>
+     <input type="text" :disabled="inputDisable"/>
+    <button @click="inputDisable = ! inputDisable">Lock/Unlock</button> 
+    </div>
     <hr>
     <div v-for="(club, index) in listClub" :key="index">
       <span :class="{color : isColor}">{{ club.name }} : {{ club.country }}</span>
     </div>
-    <button @click="isColor = ! isColor">Click Show Color</button>
+    <div>
+     <button @click="isColor = ! isColor">Click Show Color</button> 
+    </div>
     <hr>
-    <button class="box" @click="numbers" @click.prevent="number = 100" >{{ number }}</button>
+    <div>
+    <button class="box" @click="numbers" @click.prevent="number = 100" >{{ number }}</button>  
+    </div>
     <hr>
-    <input type="text" v-model="newTask">
+    <div>
+      <input type="text" v-model="newTask">
     <button @click="addTask()">Created</button>
     <div v-for="(task, index) in tasks" :key="index">
         {{ task }}
     </div>
+    </div>
     <hr>
+    <div>
     <input type="text" v-model="value">
     {{ value }}
-    <button @click="clickChange()">Click here!</button>
+    <button @click="clickChange()">Click here!</button>  
+    </div>
     <hr>
-    <Props1 v-for="(club, index) in listClub" :key="index" :clubProps="club" />
+    <div>
+    <Props1 v-for="(club, index) in listClub" :key="index" :clubProps="club" />  
+    </div>
     <hr>
-    <Props2 v-for="(club, index) in listClub" :key="index" :PropsSecond="club" />
+    <div>
+    <Props2 v-for="(club, index) in listClub" :key="index" :PropsSecond="club" />  
+    </div>
     <hr>
     <div>{{ toDay | formatDate }}</div>
     <hr>
-    <User :load="dataUser"/>
+    <div>
+    <User :load="dataUser"/>  
+    </div>
     <hr>
-    <Test />
+    <div>
+    <Test />  
+    </div>
     <hr>
-    
+        <div><h1 style="text-align: center;">Vue Resource</h1></div>
+        <div>
+          <div>
+            <input type="text" v-model="account.username" placeholder="Nhập tên tài khoản"/>
+          </div>
+          <div>
+            <input type="text" v-model="account.email" placeholder="Nhập địa chỉ mail"/>
+          </div>
+          <div>
+            <button @click="submit">Submit</button>
+          </div> 
+        </div>
+        <div>
+          <div>User name : {{ account.username }} </div>
+          <div>Email : {{ account.email }}</div>
+        </div>
+    <hr>
+        <div>
+          <button @click="getAllAccounts">Get All Data</button>
+          <ul>
+            <li v-for="(acc, index) in accounts" :key="index">{{ acc.username }} - {{ acc.email }}</li>
+          </ul>
+        </div>
+
+
+
+
+
+
+
+
+
+
 
   </div>
 </template>
@@ -51,7 +101,6 @@
   import Props2 from './components/Props2.vue'
   import User from './components/User.vue'
   import {HTTP} from './common/http-common';
-  import axios from 'axios'
   export default {
     name : 'App',
     components : {
@@ -73,7 +122,12 @@
         value:'',
         toDay: new Date().toDateString(),
         dataUser: [],
-        errors: []
+        errors: [],
+        account: {
+          username: '',
+          email: ''
+        },
+        accounts :[]
       }
     },
     methods:{
@@ -85,6 +139,29 @@
       },
       clickChange(){
         this.value='Value is changed !'
+      },
+      submit(){
+        // return console.log(this.account);
+        this.$http.post('https://examble-vue-default-rtdb.firebaseio.com/data.json', this.account)
+          .then(response => {
+            console.log(response);
+          }, error => {
+            console.log(error);
+          })
+      },
+      getAllAccounts(){
+        this.$http.get('https://examble-vue-default-rtdb.firebaseio.com/data.json')
+          .then(response => {                   //đoạn này nhớ tới promies 2 lần then
+            console.log(response);              //lần then thứ nhất return ra cái gì
+            return response.json;               //lần then thứ 2 sẽ nhất được cái đó 
+          })                                    // response.json = data
+          .then(newdata =>{
+            const newArray = []
+            for(let key in newdata){
+              newArray.push(newdata[key]);
+            }
+            this.accounts = newArray;
+          })
       }
     },
     watch: {
@@ -104,11 +181,6 @@
     },
     //call api
     created(){
-      // axios.get(`http://localhost:3000/posts`,{
-      //   params: {
-      //     title: 'Java'
-      //   }
-      // })
       HTTP.get(`posts`)
       .then(response =>{
         this.dataUser = response.data
@@ -141,6 +213,7 @@
   color: #2c3e50;
   margin-top: 60px;
 }
+
 </style>
 
 
