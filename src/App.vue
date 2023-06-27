@@ -77,9 +77,16 @@
     <hr>
         <div>
           <button @click="getAllAccounts">Get All Data</button>
-          <ul>
-            <li v-for="(acc, index) in accounts" :key="index">{{ acc.username }} - {{ acc.email }}</li>
-          </ul>
+          <table class="style table" v-if="accounts.length > 0">
+            <tr class="style">
+              <th class="style">USERNAME</th>
+              <th class="style">EMAIL</th>
+            </tr>
+            <tr class="style" v-for="(acc, index) in accounts" :key="index">
+              <td class="style">{{ acc.username }}</td>
+              <td class="style">{{ acc.email }}</td>
+            </tr>
+          </table>
         </div>
 
 
@@ -152,16 +159,18 @@
       getAllAccounts(){
         this.$http.get('https://examble-vue-default-rtdb.firebaseio.com/data.json')
           .then(response => {                   //đoạn này nhớ tới promies 2 lần then
-            console.log(response);              //lần then thứ nhất return ra cái gì
-            return response.json;               //lần then thứ 2 sẽ nhất được cái đó 
+            console.log(response.json());              //lần then thứ nhất return ra cái gì
+            return response.json();               //lần then thứ 2 sẽ nhất được cái đó 
           })                                    // response.json = data
           .then(newdata =>{
             const newArray = []
-            for(let key in newdata){
-              newArray.push(newdata[key]);
+            console.log(newdata);
+            for(let x in newdata){
+              newArray.push(newdata[x]);
             }
+            console.log(newArray);
             this.accounts = newArray;
-          })
+          })   
       }
     },
     watch: {
